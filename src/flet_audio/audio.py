@@ -7,6 +7,15 @@ from flet.core.event_handler import EventHandler
 from flet.core.ref import Ref
 from flet.core.types import OptionalControlEventCallable, OptionalEventCallable
 
+__all__ = [
+    "Audio",
+    "AudioDurationChangeEvent",
+    "AudioPositionChangeEvent",
+    "AudioState",
+    "AudioStateChangeEvent",
+    "ReleaseMode",
+]
+
 
 class ReleaseMode(Enum):
     RELEASE = "release"

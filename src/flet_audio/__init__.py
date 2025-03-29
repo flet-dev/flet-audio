@@ -4,4 +4,5 @@ from flet_audio.audio import (
     AudioPositionChangeEvent,
     AudioState,
     AudioStateChangeEvent,
+    ReleaseMode,
 )
