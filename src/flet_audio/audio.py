@@ -6,7 +6,6 @@ from flet.core.control_event import ControlEvent
 from flet.core.event_handler import EventHandler
 from flet.core.ref import Ref
 from flet.core.types import OptionalControlEventCallable, OptionalEventCallable
-from flet.utils import deprecated
 
 
 class ReleaseMode(Enum):
@@ -236,11 +235,12 @@ class Audio(Control):
 
     # release_mode
     @property
-    def release_mode(self):
-        return self._get_attr("releaseMode")
+    def release_mode(self) -> Optional[ReleaseMode]:
+        return self.__release_mode
 
     @release_mode.setter
     def release_mode(self, value: Optional[ReleaseMode]):
+        self.__release_mode = value
         self._set_enum_attr("releaseMode", value, ReleaseMode)
 
     # on_loaded
