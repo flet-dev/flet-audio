@@ -44,6 +44,17 @@ To install the `flet-audio` package and add it to your project dependencies:
     poetry add flet-audio
     ```
 
+??? note "Windows Subsystem for Linux (WSL)"
+    On WSL, you need to install [`GStreamer`](https://github.com/GStreamer/gstreamer) library.
+    
+    If you receive `error while loading shared libraries: libgstapp-1.0.so.0`, 
+    it means `GStreamer` is not installed in your WSL environment.
+    
+    To install it, run the following command:
+    
+    ```bash
+    apt install -y libgstreamer1.0-0 gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools
+    ```
 
 ## Example
 
