@@ -33,12 +33,12 @@ class AudioService extends FletService {
 
     _onDurationChangedSubscription =
         player.onDurationChanged.listen((duration) {
-      control.triggerEvent(
-          "duration_change", {"duration": duration.inMilliseconds});
+      control.triggerEvent("duration_change", {"duration": duration});
       _duration = duration;
     });
 
-    _onStateChangedSubscription = player.onPlayerStateChanged.listen((PlayerState state) {
+    _onStateChangedSubscription =
+        player.onPlayerStateChanged.listen((PlayerState state) {
       control.triggerEvent("state_change", {"state": state.name});
     });
 
@@ -116,10 +116,7 @@ class AudioService extends FletService {
         await player.setPlaybackRate(playbackRate);
       }
 
-      if (!kIsWeb &&
-          balance != _balance &&
-          balance >= -1 &&
-          balance <= 1) {
+      if (!kIsWeb && balance != _balance && balance >= -1 && balance <= 1) {
         _balance = balance;
         await player.setBalance(balance);
       }

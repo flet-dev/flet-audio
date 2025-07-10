@@ -20,7 +20,8 @@ class Audio(ft.Service):
         AssertionError: If both [`src`][(c).] and [`src_base64`][(c).] are `None`.
 
     Note:
-        This control is non-visual and should be added to `Page.services` list before it can be used.
+        This control is non-visual and should be added to [`Page.services`][flet.Page.services]
+        list before it can be used.
     """
 
     src: Optional[str] = None
@@ -36,7 +37,7 @@ class Audio(ft.Service):
 
     src_base64: Optional[str] = None
     """
-    Sets the contents of audio file encoded in base-64 format.
+    Defines the contents of audio file encoded in base-64 format.
     
     Note:
         - At least one of [`src`][..] or `src_base64` must be provided, 
@@ -62,7 +63,7 @@ class Audio(ft.Service):
 
     balance: ft.Number = 0.0
     """
-    Sets the stereo balance.
+    Defines the stereo balance.
 
 
     * `-1` - The left channel is at full volume; the right channel is silent. 
@@ -72,7 +73,7 @@ class Audio(ft.Service):
 
     playback_rate: ft.Number = 1.0
     """
-    Sets the playback rate. 
+    Defines the playback rate. 
     
     Should ideally be set when creating the constructor.
     
@@ -83,39 +84,33 @@ class Audio(ft.Service):
 
     release_mode: ReleaseMode = ReleaseMode.RELEASE
     """
-    Sets the release mode.
+    Defines the release mode.
     """
 
-    on_loaded: ft.OptionalControlEventHandler["Audio"] = None
+    on_loaded: Optional[ft.ControlEventHandler["Audio"]] = None
     """
     Fires when an audio is loaded/buffered.
     """
 
-    on_duration_change: ft.OptionalEventHandler[AudioDurationChangeEvent["Audio"]] = None
+    on_duration_change: Optional[ft.EventHandler[AudioDurationChangeEvent["Audio"]]] = None
     """
     Fires as soon as audio duration is available (it might take a while to download or buffer it).
-
-    Event handler argument is of type [`AudioDurationChangeEvent`][(p).].
     """
 
-    on_state_change: ft.OptionalEventHandler[AudioStateChangeEvent["Audio"]] = None
+    on_state_change: Optional[ft.EventHandler[AudioStateChangeEvent["Audio"]]] = None
     """
-    Fires when audio player state changes. 
-
-    Event handler argument is of type [`AudioStateChangeEvent`][(p).].
+    Fires when audio player state changes.
     """
 
-    on_position_change: ft.OptionalEventHandler[AudioPositionChangeEvent["Audio"]] = None
+    on_position_change: Optional[ft.EventHandler[AudioPositionChangeEvent["Audio"]]] = None
     """
     Fires when audio position is changed. 
     Will continuously update the position of the playback every 1 second if the status is playing. 
     
     Can be used for a progress bar.
-
-    Event handler argument is of type [`AudioPositionChangeEvent`][(p).].
     """
 
-    on_seek_complete: ft.OptionalControlEventHandler["Audio"] = None
+    on_seek_complete: Optional[ft.ControlEventHandler["Audio"]] = None
     """
     Fires on seek completions. 
     An event is going to be sent as soon as the audio seek is finished.
@@ -132,6 +127,7 @@ class Audio(ft.Service):
         Args:
             position: The position to start playback from.
             timeout: The maximum amount of time (in seconds) to wait for a response.
+        
         Raises:
             TimeoutError: If the request times out.
         """
@@ -144,6 +140,7 @@ class Audio(ft.Service):
         Args:
             position: The position to start playback from.
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Raises:
             TimeoutError: If the request times out.
         """
@@ -153,7 +150,7 @@ class Audio(ft.Service):
         """
         Pauses the audio that is currently playing.
 
-        If you call [`resume()`][.resume] or [`resume_async()`][.resume_async] later,
+        If you call [`resume()`][(c).resume] or [`resume_async()`][(c).resume_async] later,
         the audio will resume from the point that it has been paused.
         """
         await self._invoke_method_async("pause", timeout=timeout)
@@ -162,11 +159,12 @@ class Audio(ft.Service):
         """
         Pauses the audio that is currently playing.
 
-        If you call [`resume()`][.resume] or [`resume_async()`][.resume_async] later,
+        If you call [`resume()`][(c).resume] or [`resume_async()`][(c).resume_async] later,
         the audio will resume from the point that it has been paused.
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Raises:
             TimeoutError: If the request times out.
         """
@@ -178,6 +176,7 @@ class Audio(ft.Service):
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Raises:
             TimeoutError: If the request times out.
         """
@@ -189,6 +188,7 @@ class Audio(ft.Service):
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Raises:
             TimeoutError: If the request times out.
         """
@@ -198,10 +198,11 @@ class Audio(ft.Service):
         """
         Releases the resources associated with this media player.
         These are going to be fetched or buffered again as soon as
-        you change the source or call [`resume()`][.resume] or [`resume_async()`][.resume_async].
+        you change the source or call [`resume()`][(c).resume] or [`resume_async()`][(c).resume_async].
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Raises:
             TimeoutError: If the request times out.
         """
@@ -211,10 +212,11 @@ class Audio(ft.Service):
         """
         Releases the resources associated with this media player.
         These are going to be fetched or buffered again as soon as
-        you change the source or call [`resume()`][.resume] or [`resume_async()`][.resume_async].
+        you change the source or call [`resume()`][(c).resume] or [`resume_async()`][(c).resume_async].
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Raises:
             TimeoutError: If the request times out.
         """
@@ -227,6 +229,7 @@ class Audio(ft.Service):
         Args:
             position: The position to seek/move to.
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Raises:
             TimeoutError: If the request times out.
         """
@@ -239,6 +242,7 @@ class Audio(ft.Service):
         Args:
             position: The position to seek/move to.
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Raises:
             TimeoutError: If the request times out.
         """
@@ -253,8 +257,10 @@ class Audio(ft.Service):
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Returns:
             The duration of audio playback.
+
         Raises:
             TimeoutError: If the request times out.
         """
