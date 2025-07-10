@@ -1,10 +1,6 @@
-import logging
-
 import flet as ft
 
 import flet_audio as fta
-
-logging.basicConfig(level=logging.INFO)
 
 
 def main(page: ft.Page):
