@@ -6,6 +6,7 @@ import flet_audio as fta
 
 logging.basicConfig(level=logging.INFO)
 
+
 def main(page: ft.Page):
 
     url = "https://github.com/mdn/webaudio-examples/blob/main/audio-analyser/viper.mp3?raw=true"
@@ -29,7 +30,7 @@ def main(page: ft.Page):
         balance=0,
         on_loaded=lambda _: print("Loaded"),
         on_duration_change=lambda e: print("Duration changed:", e.duration),
-        on_position_change=lambda e: print("Position changed:", e),
+        on_position_change=lambda e: print("Position changed:", e.position),
         on_state_change=lambda e: print("State changed:", e.state),
         on_seek_complete=lambda _: print("Seek complete"),
     )
