@@ -1,0 +1,30 @@
+[project]
+name = "audio_example"
+version = "1.0.0"
+description = "Flet Audio Example"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+dependencies = [
+  "flet-audio",
+  "flet >=0.70.0.dev0",
+]
+
+# Docs: https://flet.dev/docs/publish
+[tool.flet]
+org = "com.mycompany"
+product = "Flet Audio Example"
+company = "Flet"
+copyright = "Copyright (C) 2025 by Flet"
+
+[tool.flet.dev_packages]
+flet-audio = "../"
+
+[tool.uv]
+dev-dependencies = [
+    "flet-cli >=0.70.0.dev0",
+    "flet-desktop >=0.70.0.dev0",
+]
+
+[tool.uv.sources]
+flet-audio = { path = "../", editable = true }

@@ -1,3 +1,4 @@
+from dataclasses import dataclass, field
 from enum import Enum
 
 import flet as ft
@@ -57,13 +58,16 @@ class AudioState(Enum):
     """The audio player has been disposed of and should not be used anymore."""
 
 
+@dataclass
 class AudioStateChangeEvent(ft.Event[ft.EventControlType]):
     state: AudioState
 
 
+@dataclass
 class AudioPositionChangeEvent(ft.Event[ft.EventControlType]):
     position: int
 
 
+@dataclass
 class AudioDurationChangeEvent(ft.Event[ft.EventControlType]):
     duration: int
