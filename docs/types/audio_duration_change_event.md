@@ -1,1 +1,1 @@
-::: flet_audio.types.AudioDurationChangeEvent
+::: flet_audio.AudioDurationChangeEvent

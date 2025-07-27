@@ -1,1 +1,1 @@
-::: flet_audio.types.AudioPositionChangeEvent
+::: flet_audio.AudioPositionChangeEvent

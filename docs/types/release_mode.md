@@ -1,3 +1,3 @@
-::: flet_audio.types.ReleaseMode
+::: flet_audio.ReleaseMode
     options:
         separate_signature: false

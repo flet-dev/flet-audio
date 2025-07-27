@@ -1,13 +1,17 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from enum import Enum
+from typing import TYPE_CHECKING
 
 import flet as ft
 
+if TYPE_CHECKING:
+    from .audio import Audio  # noqa
+
 __all__ = [
+    "AudioDurationChangeEvent",
+    "AudioPositionChangeEvent",
     "AudioState",
     "AudioStateChangeEvent",
-    "AudioPositionChangeEvent",
-    "AudioDurationChangeEvent",
     "ReleaseMode",
 ]
 
@@ -21,9 +25,10 @@ class ReleaseMode(Enum):
 
     Info:
         - On Android, the media player is quite resource-intensive, and this will
-        let it go. Data will be buffered again when needed (if it's a remote file,
-        it will be downloaded again).
-        - On iOS and macOS, works just like [`Audio.release()`][(p).Audio.release] method.
+            let it go. Data will be buffered again when needed (if it's a remote file,
+            it will be downloaded again).
+        - On iOS and macOS, works just like [`Audio.release()`][(p).Audio.release]
+            method.
     """
 
     LOOP = "loop"
@@ -60,7 +65,7 @@ class AudioState(Enum):
 
 
 @dataclass
-class AudioStateChangeEvent(ft.Event[ft.EventControlType]):
+class AudioStateChangeEvent(ft.Event["Audio"]):
     """
     Event triggered when the audio playback state changes.
     """
@@ -70,7 +75,7 @@ class AudioStateChangeEvent(ft.Event[ft.EventControlType]):
 
 
 @dataclass
-class AudioPositionChangeEvent(ft.Event[ft.EventControlType]):
+class AudioPositionChangeEvent(ft.Event["Audio"]):
     """
     Event triggered when the audio playback position changes.
     """
@@ -80,7 +85,7 @@ class AudioPositionChangeEvent(ft.Event[ft.EventControlType]):
 
 
 @dataclass
-class AudioDurationChangeEvent(ft.Event[ft.EventControlType]):
+class AudioDurationChangeEvent(ft.Event["Audio"]):
     """
     Event triggered when the audio duration changes.
     """

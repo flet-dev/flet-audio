@@ -20,44 +20,47 @@ class Audio(ft.Service):
         AssertionError: If both [`src`][(c).] and [`src_base64`][(c).] are `None`.
 
     Note:
-        This control is non-visual and should be added to [`Page.services`][flet.Page.services]
+        This control is non-visual and should be added to
+        [`Page.services`][flet.Page.services]
         list before it can be used.
     """
 
     src: Optional[str] = None
     """
-    The audio source. Can be a URL or a local [asset file](https://flet.dev/docs/cookbook/assets).
+    The audio source.
+    Can be a URL or a local [asset file](https://docs.flet.dev/cookbook/assets).
 
     Note:
-        - At least one of `src` or [`src_base64`][..] must be provided, 
+        - At least one of `src` or [`src_base64`][..] must be provided,
             with `src_base64` having priority if both are provided.
-        - [Here](https://github.com/bluefireteam/audioplayers/blob/main/troubleshooting.md#supported-formats--encodings) 
+        - [Here](https://github.com/bluefireteam/audioplayers/blob/main/troubleshooting.md#supported-formats--encodings)
             is a list of supported audio formats.
     """
 
     src_base64: Optional[str] = None
     """
     Defines the contents of audio file encoded in base-64 format.
-    
+
     Note:
-        - At least one of [`src`][..] or `src_base64` must be provided, 
+        - At least one of [`src`][..] or `src_base64` must be provided,
             with `src_base64` having priority if both are provided.
-        - [Here](https://github.com/bluefireteam/audioplayers/blob/main/troubleshooting.md#supported-formats--encodings) 
+        - [Here](https://github.com/bluefireteam/audioplayers/blob/main/troubleshooting.md#supported-formats--encodings)
             is a list of supported audio formats.
     """
 
     autoplay: bool = False
     """
     Starts playing audio as soon as audio control is added to a page.
-    
+
     Note:
-        Autoplay works in desktop, mobile apps and Safari browser, but doesn't work in Chrome/Edge.
+        Autoplay works in desktop, mobile apps and Safari browser,
+        but doesn't work in Chrome/Edge.
     """
 
     volume: ft.Number = 1.0
     """
     Sets the volume (amplitude).
-    It's value ranges between `0.0` (mute) and `1.0` (maximum volume). 
+    It's value ranges between `0.0` (mute) and `1.0` (maximum volume).
     Intermediate values are linearly interpolated.
     """
 
@@ -65,20 +68,19 @@ class Audio(ft.Service):
     """
     Defines the stereo balance.
 
-
-    * `-1` - The left channel is at full volume; the right channel is silent. 
-    * `1` - The right channel is at full volume; the left channel is silent. 
+    * `-1` - The left channel is at full volume; the right channel is silent.
+    * `1` - The right channel is at full volume; the left channel is silent.
     * `0` - Both channels are at the same volume.
     """
 
     playback_rate: ft.Number = 1.0
     """
-    Defines the playback rate. 
-    
+    Defines the playback rate.
+
     Should ideally be set when creating the constructor.
-    
-    Note: 
-        - iOS and macOS have limits between `0.5x` and `2x`. 
+
+    Note:
+        - iOS and macOS have limits between `0.5x` and `2x`.
         - Android SDK version should be 23 or higher.
     """
 
@@ -92,27 +94,29 @@ class Audio(ft.Service):
     Fires when an audio is loaded/buffered.
     """
 
-    on_duration_change: Optional[ft.EventHandler[AudioDurationChangeEvent["Audio"]]] = None
+    on_duration_change: Optional[ft.EventHandler[AudioDurationChangeEvent]] = None
     """
-    Fires as soon as audio duration is available (it might take a while to download or buffer it).
+    Fires as soon as audio duration is available
+    (it might take a while to download or buffer it).
     """
 
-    on_state_change: Optional[ft.EventHandler[AudioStateChangeEvent["Audio"]]] = None
+    on_state_change: Optional[ft.EventHandler[AudioStateChangeEvent]] = None
     """
     Fires when audio player state changes.
     """
 
-    on_position_change: Optional[ft.EventHandler[AudioPositionChangeEvent["Audio"]]] = None
+    on_position_change: Optional[ft.EventHandler[AudioPositionChangeEvent]] = None
     """
-    Fires when audio position is changed. 
-    Will continuously update the position of the playback every 1 second if the status is playing. 
-    
+    Fires when audio position is changed.
+    Will continuously update the position of the playback
+    every 1 second if the status is playing.
+
     Can be used for a progress bar.
     """
 
     on_seek_complete: Optional[ft.ControlEventHandler["Audio"]] = None
     """
-    Fires on seek completions. 
+    Fires on seek completions.
     An event is going to be sent as soon as the audio seek is finished.
     """
 
@@ -120,20 +124,28 @@ class Audio(ft.Service):
         super().before_update()
         assert self.src or self.src_base64, "either src or src_base64 must be provided"
 
-    async def play_async(self, position: ft.DurationValue = ft.Duration(), timeout: Optional[float] = 10):
+    async def play_async(
+        self, position: ft.DurationValue = ft.Duration(), timeout: Optional[float] = 10
+    ):
         """
         Starts playing audio from the specified `position`.
 
         Args:
             position: The position to start playback from.
             timeout: The maximum amount of time (in seconds) to wait for a response.
-        
+
         Raises:
             TimeoutError: If the request times out.
         """
-        await self._invoke_method_async("play", {"position": position}, timeout=timeout)
+        await self._invoke_method_async(
+            method_name="play",
+            arguments={"position": position},
+            timeout=timeout,
+        )
 
-    def play(self, position: ft.DurationValue = ft.Duration(), timeout: Optional[float] = 10):
+    def play(
+        self, position: ft.DurationValue = ft.Duration(), timeout: Optional[float] = 10
+    ):
         """
         Starts playing audio from the specified `position`.
 
@@ -150,7 +162,8 @@ class Audio(ft.Service):
         """
         Pauses the audio that is currently playing.
 
-        If you call [`resume()`][(c).resume] or [`resume_async()`][(c).resume_async] later,
+        If you call [`resume()`][(c).resume] or
+        [`resume_async()`][(c).resume_async] later,
         the audio will resume from the point that it has been paused.
         """
         await self._invoke_method_async("pause", timeout=timeout)
@@ -159,7 +172,8 @@ class Audio(ft.Service):
         """
         Pauses the audio that is currently playing.
 
-        If you call [`resume()`][(c).resume] or [`resume_async()`][(c).resume_async] later,
+        If you call [`resume()`][(c).resume] or
+        [`resume_async()`][(c).resume_async] later,
         the audio will resume from the point that it has been paused.
 
         Args:
@@ -198,7 +212,8 @@ class Audio(ft.Service):
         """
         Releases the resources associated with this media player.
         These are going to be fetched or buffered again as soon as
-        you change the source or call [`resume()`][(c).resume] or [`resume_async()`][(c).resume_async].
+        you change the source or call [`resume()`][(c).resume] or
+        [`resume_async()`][(c).resume_async].
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
@@ -212,7 +227,8 @@ class Audio(ft.Service):
         """
         Releases the resources associated with this media player.
         These are going to be fetched or buffered again as soon as
-        you change the source or call [`resume()`][(c).resume] or [`resume_async()`][(c).resume_async].
+        you change the source or call [`resume()`][(c).resume] or
+        [`resume_async()`][(c).resume_async].
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
@@ -222,7 +238,9 @@ class Audio(ft.Service):
         """
         asyncio.create_task(self.release_async(timeout=timeout))
 
-    async def seek_async(self, position: ft.DurationValue, timeout: Optional[float] = 10):
+    async def seek_async(
+        self, position: ft.DurationValue, timeout: Optional[float] = 10
+    ):
         """
         Moves the cursor to the desired position.
 
@@ -233,7 +251,11 @@ class Audio(ft.Service):
         Raises:
             TimeoutError: If the request times out.
         """
-        await self._invoke_method_async("seek", {"position": position}, timeout=timeout)
+        await self._invoke_method_async(
+            method_name="seek",
+            arguments={"position": position},
+            timeout=timeout,
+        )
 
     def seek(self, position: ft.DurationValue, timeout: Optional[float] = 10):
         """
@@ -248,7 +270,9 @@ class Audio(ft.Service):
         """
         asyncio.create_task(self.seek_async(position, timeout=timeout))
 
-    async def get_duration_async(self, timeout: Optional[float] = 10) -> Optional[ft.Duration]:
+    async def get_duration_async(
+        self, timeout: Optional[float] = 10
+    ) -> Optional[ft.Duration]:
         """
         Get audio duration of the audio playback.
 
@@ -264,15 +288,24 @@ class Audio(ft.Service):
         Raises:
             TimeoutError: If the request times out.
         """
-        return await self._invoke_method_async("get_duration", timeout=timeout)
+        return await self._invoke_method_async(
+            method_name="get_duration",
+            timeout=timeout,
+        )
 
-    async def get_current_position_async(self, timeout: Optional[float] = 10) -> Optional[ft.Duration]:
+    async def get_current_position_async(
+        self, timeout: Optional[float] = 10
+    ) -> Optional[ft.Duration]:
         """
         Get the current position of the audio playback.
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Returns:
             The current position of the audio playback.
         """
-        return await self._invoke_method_async("get_current_position", timeout=timeout)
+        return await self._invoke_method_async(
+            method_name="get_current_position",
+            timeout=timeout,
+        )

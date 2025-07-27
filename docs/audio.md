@@ -1,1 +1,1 @@
-::: flet_audio.audio.Audio
+::: flet_audio.Audio
