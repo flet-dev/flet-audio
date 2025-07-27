@@ -31,8 +31,8 @@ class Audio(ft.Service):
     Can be a URL or a local [asset file](https://docs.flet.dev/cookbook/assets).
 
     Note:
-        - At least one of `src` or [`src_base64`][..] must be provided,
-            with `src_base64` having priority if both are provided.
+        - At least one of `src` or [`src_base64`][flet_audio.Audio.src_base64] must be
+            provided, with `src_base64` having priority if both are provided.
         - [Here](https://github.com/bluefireteam/audioplayers/blob/main/troubleshooting.md#supported-formats--encodings)
             is a list of supported audio formats.
     """
@@ -42,7 +42,7 @@ class Audio(ft.Service):
     Defines the contents of audio file encoded in base-64 format.
 
     Note:
-        - At least one of [`src`][..] or `src_base64` must be provided,
+        - At least one of [`src`][flet_audio.Audio.src] or `src_base64` must be provided,
             with `src_base64` having priority if both are provided.
         - [Here](https://github.com/bluefireteam/audioplayers/blob/main/troubleshooting.md#supported-formats--encodings)
             is a list of supported audio formats.
@@ -162,8 +162,8 @@ class Audio(ft.Service):
         """
         Pauses the audio that is currently playing.
 
-        If you call [`resume()`][(c).resume] or
-        [`resume_async()`][(c).resume_async] later,
+        If you call [`resume()`][flet_audio.Audio.resume] or
+        [`resume_async()`][flet_audio.Audio.resume_async] later,
         the audio will resume from the point that it has been paused.
         """
         await self._invoke_method_async("pause", timeout=timeout)
@@ -172,8 +172,8 @@ class Audio(ft.Service):
         """
         Pauses the audio that is currently playing.
 
-        If you call [`resume()`][(c).resume] or
-        [`resume_async()`][(c).resume_async] later,
+        If you call [`resume()`][flet_audio.Audio.resume] or
+        [`resume_async()`][flet_audio.Audio.resume_async] later,
         the audio will resume from the point that it has been paused.
 
         Args:
@@ -212,8 +212,8 @@ class Audio(ft.Service):
         """
         Releases the resources associated with this media player.
         These are going to be fetched or buffered again as soon as
-        you change the source or call [`resume()`][(c).resume] or
-        [`resume_async()`][(c).resume_async].
+        you change the source or call [`resume()`][flet_audio.Audio.resume] or
+        [`resume_async()`][flet_audio.Audio.resume_async].
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
@@ -227,8 +227,8 @@ class Audio(ft.Service):
         """
         Releases the resources associated with this media player.
         These are going to be fetched or buffered again as soon as
-        you change the source or call [`resume()`][(c).resume] or
-        [`resume_async()`][(c).resume_async].
+        you change the source or call [`resume()`][flet_audio.Audio.resume] or
+        [`resume_async()`][flet_audio.Audio.resume_async].
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
