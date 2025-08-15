@@ -1,4 +1,3 @@
-import asyncio
 from typing import Optional
 
 import flet as ft
@@ -124,7 +123,7 @@ class Audio(ft.Service):
         super().before_update()
         assert self.src or self.src_base64, "either src or src_base64 must be provided"
 
-    async def play_async(
+    async def play(
         self, position: ft.DurationValue = ft.Duration(), timeout: Optional[float] = 10
     ):
         """
@@ -137,54 +136,22 @@ class Audio(ft.Service):
         Raises:
             TimeoutError: If the request times out.
         """
-        await self._invoke_method_async(
+        await self._invoke_method(
             method_name="play",
             arguments={"position": position},
             timeout=timeout,
         )
 
-    def play(
-        self, position: ft.DurationValue = ft.Duration(), timeout: Optional[float] = 10
-    ):
-        """
-        Starts playing audio from the specified `position`.
-
-        Args:
-            position: The position to start playback from.
-            timeout: The maximum amount of time (in seconds) to wait for a response.
-
-        Raises:
-            TimeoutError: If the request times out.
-        """
-        asyncio.create_task(self.play_async(position, timeout=timeout))
-
-    async def pause_async(self, timeout: Optional[float] = 10):
+    async def pause(self, timeout: Optional[float] = 10):
         """
         Pauses the audio that is currently playing.
 
-        If you call [`resume()`][flet_audio.Audio.resume] or
-        [`resume_async()`][flet_audio.Audio.resume_async] later,
+        If you call [`resume()`][flet_audio.Audio.resume] later,
         the audio will resume from the point that it has been paused.
         """
-        await self._invoke_method_async("pause", timeout=timeout)
+        await self._invoke_method("pause", timeout=timeout)
 
-    def pause(self, timeout: Optional[float] = 10):
-        """
-        Pauses the audio that is currently playing.
-
-        If you call [`resume()`][flet_audio.Audio.resume] or
-        [`resume_async()`][flet_audio.Audio.resume_async] later,
-        the audio will resume from the point that it has been paused.
-
-        Args:
-            timeout: The maximum amount of time (in seconds) to wait for a response.
-
-        Raises:
-            TimeoutError: If the request times out.
-        """
-        asyncio.create_task(self.pause_async(timeout=timeout))
-
-    async def resume_async(self, timeout: Optional[float] = 10):
+    async def resume(self, timeout: Optional[float] = 10):
         """
         Resumes the audio that has been paused or stopped.
 
@@ -194,26 +161,13 @@ class Audio(ft.Service):
         Raises:
             TimeoutError: If the request times out.
         """
-        await self._invoke_method_async("resume", timeout=timeout)
+        await self._invoke_method("resume", timeout=timeout)
 
-    def resume(self, timeout: Optional[float] = 10):
-        """
-        Resumes the audio that has been paused or stopped.
-
-        Args:
-            timeout: The maximum amount of time (in seconds) to wait for a response.
-
-        Raises:
-            TimeoutError: If the request times out.
-        """
-        asyncio.create_task(self.resume_async(timeout=timeout))
-
-    async def release_async(self, timeout: Optional[float] = 10):
+    async def release(self, timeout: Optional[float] = 10):
         """
         Releases the resources associated with this media player.
         These are going to be fetched or buffered again as soon as
-        you change the source or call [`resume()`][flet_audio.Audio.resume] or
-        [`resume_async()`][flet_audio.Audio.resume_async].
+        you change the source or call [`resume()`][flet_audio.Audio.resume].
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
@@ -221,26 +175,9 @@ class Audio(ft.Service):
         Raises:
             TimeoutError: If the request times out.
         """
-        await self._invoke_method_async("release", timeout=timeout)
+        await self._invoke_method("release", timeout=timeout)
 
-    def release(self, timeout: Optional[float] = 10):
-        """
-        Releases the resources associated with this media player.
-        These are going to be fetched or buffered again as soon as
-        you change the source or call [`resume()`][flet_audio.Audio.resume] or
-        [`resume_async()`][flet_audio.Audio.resume_async].
-
-        Args:
-            timeout: The maximum amount of time (in seconds) to wait for a response.
-
-        Raises:
-            TimeoutError: If the request times out.
-        """
-        asyncio.create_task(self.release_async(timeout=timeout))
-
-    async def seek_async(
-        self, position: ft.DurationValue, timeout: Optional[float] = 10
-    ):
+    async def seek(self, position: ft.DurationValue, timeout: Optional[float] = 10):
         """
         Moves the cursor to the desired position.
 
@@ -251,26 +188,13 @@ class Audio(ft.Service):
         Raises:
             TimeoutError: If the request times out.
         """
-        await self._invoke_method_async(
+        await self._invoke_method(
             method_name="seek",
             arguments={"position": position},
             timeout=timeout,
         )
 
-    def seek(self, position: ft.DurationValue, timeout: Optional[float] = 10):
-        """
-        Moves the cursor to the desired position.
-
-        Args:
-            position: The position to seek/move to.
-            timeout: The maximum amount of time (in seconds) to wait for a response.
-
-        Raises:
-            TimeoutError: If the request times out.
-        """
-        asyncio.create_task(self.seek_async(position, timeout=timeout))
-
-    async def get_duration_async(
+    async def get_duration(
         self, timeout: Optional[float] = 10
     ) -> Optional[ft.Duration]:
         """
@@ -288,12 +212,12 @@ class Audio(ft.Service):
         Raises:
             TimeoutError: If the request times out.
         """
-        return await self._invoke_method_async(
+        return await self._invoke_method(
             method_name="get_duration",
             timeout=timeout,
         )
 
-    async def get_current_position_async(
+    async def get_current_position(
         self, timeout: Optional[float] = 10
     ) -> Optional[ft.Duration]:
         """
@@ -305,7 +229,7 @@ class Audio(ft.Service):
         Returns:
             The current position of the audio playback.
         """
-        return await self._invoke_method_async(
+        return await self._invoke_method(
             method_name="get_current_position",
             timeout=timeout,
         )
