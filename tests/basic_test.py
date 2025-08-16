@@ -1,3 +1,5 @@
+from typing import Union
+
 import flet as ft
 
 import flet_audio as fta
@@ -24,10 +26,10 @@ def main(page: ft.Page):
     def set_balance(value: float):
         audio.balance += value
 
-    def seek(position: int | ft.Duration):
-        audio.seek(position)
+    async def seek(position: Union[int, ft.Duration]):
+        await audio.seek(position)
 
-    async def on_get_duration(e: ft.Event[ft.ElevatedButton]):
+    async def get_duration(e: ft.Event[ft.ElevatedButton]):
         duration = await audio.get_duration()
         print("Duration:", duration)
 
@@ -66,7 +68,7 @@ def main(page: ft.Page):
                 ft.ElevatedButton("Balance right", on_click=lambda _: set_balance(0.1)),
             ]
         ),
-        ft.ElevatedButton("Get duration", on_click=on_get_duration),
+        ft.ElevatedButton("Get duration", on_click=get_duration),
         ft.ElevatedButton("Get current position", on_click=on_get_current_position),
     )
 
