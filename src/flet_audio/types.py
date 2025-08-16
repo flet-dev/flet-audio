@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import flet as ft
 
 if TYPE_CHECKING:
-    from .audio import Audio  # noqa
+    from flet_audio.audio import Audio  # noqa
 
 __all__ = [
     "AudioDurationChangeEvent",

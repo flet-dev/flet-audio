@@ -2,7 +2,7 @@ from typing import Optional
 
 import flet as ft
 
-from .types import (
+from flet_audio.types import (
     AudioDurationChangeEvent,
     AudioPositionChangeEvent,
     AudioStateChangeEvent,
@@ -41,8 +41,8 @@ class Audio(ft.Service):
     Defines the contents of audio file encoded in base-64 format.
 
     Note:
-        - At least one of [`src`][flet_audio.Audio.src] or `src_base64` must be provided,
-            with `src_base64` having priority if both are provided.
+        - At least one of [`src`][flet_audio.Audio.src] or `src_base64` must be
+            provided, with `src_base64` having priority if both are provided.
         - [Here](https://github.com/bluefireteam/audioplayers/blob/main/troubleshooting.md#supported-formats--encodings)
             is a list of supported audio formats.
     """
@@ -123,9 +123,7 @@ class Audio(ft.Service):
         super().before_update()
         assert self.src or self.src_base64, "either src or src_base64 must be provided"
 
-    async def play(
-        self, position: ft.DurationValue = ft.Duration(), timeout: Optional[float] = 10
-    ):
+    async def play(self, position: ft.DurationValue = 0, timeout: Optional[float] = 10):
         """
         Starts playing audio from the specified `position`.
 
