@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import flet as ft
 
 if TYPE_CHECKING:
-    from .audio import Audio  # noqa
+    from flet_audio.audio import Audio  # noqa
 
 __all__ = [
     "AudioDurationChangeEvent",
@@ -27,8 +27,8 @@ class ReleaseMode(Enum):
         - On Android, the media player is quite resource-intensive, and this will
             let it go. Data will be buffered again when needed (if it's a remote file,
             it will be downloaded again).
-        - On iOS and macOS, works just like [`Audio.release()`][flet_audio.Audio.release]
-            method.
+        - On iOS and macOS, works just like
+            [`Audio.release()`][flet_audio.Audio.release] method.
     """
 
     LOOP = "loop"
